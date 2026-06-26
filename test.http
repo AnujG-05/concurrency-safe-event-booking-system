@@ -1,0 +1,44 @@
+### Health check
+GET http://localhost:8080/api/health
+
+### Create an event with 5 seats
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "name": "Concurrency Test Concert",
+  "totalSeats": 5
+}
+
+### Fetch an event (replace {{id}})
+GET http://localhost:8080/api/events/1
+
+### Book a seat
+POST http://localhost:8080/api/bookings
+Content-Type: application/json
+
+{
+  "eventId": 1,
+  "userId": 100,
+  "seatsBooked": 1
+}
+
+### List bookings for an event
+GET http://localhost:8080/api/bookings/event/1
+
+### Get a single booking
+GET http://localhost:8080/api/bookings/1
+
+### Explain a FAILED booking (replace {{id}} with a failed booking's id)
+GET http://localhost:8080/api/bookings/2/explain
+
+### Admin: verify an explanation as accurate
+PATCH http://localhost:8080/api/bookings/2/verify-explanation
+Content-Type: application/json
+
+{
+  "accurate": true
+}
+
+### Admin: check LLM explanation accuracy rate
+GET http://localhost:8080/api/admin/llm-accuracy
